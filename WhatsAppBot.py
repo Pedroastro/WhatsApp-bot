@@ -10,10 +10,6 @@ TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
 MY_PHONE_NUMBER = os.environ.get('MY_PHONE_NUMBER')
 BUSINESS_PHONE_NUMBER = os.environ.get('BUSINESS_PHONE_NUMBER')
 
-client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN )
-conversation = client.conversations.v1.conversations.create()
-conversation_sid = conversation.sid
-
 app = Flask(__name__)
 
 @app.route("/", methods=["POST"])
@@ -32,24 +28,6 @@ def bot():
                                 from_=f'whatsapp:{BUSINESS_PHONE_NUMBER}',
                                 to=f'{user_number}'
                             )
-    
-    participant = client.conversations \
-        .v1 \
-        .conversations(conversation_sid) \
-        .participants \
-        .create(
-            messaging_binding_address=f'whatsapp:{MY_PHONE_NUMBER}',
-            messaging_binding_proxy_address=f'whatsapp:{BUSINESS_PHONE_NUMBER}'
-        )
-
-    participant = client.conversations \
-        .v1 \
-        .conversations(conversation_sid) \
-        .participants \
-        .create(
-            messaging_binding_address=f'{user_number}',
-            messaging_binding_proxy_address=f'whatsapp:{BUSINESS_PHONE_NUMBER}'
-        )
 
     return "ok"
 

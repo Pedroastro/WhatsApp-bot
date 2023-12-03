@@ -10,7 +10,7 @@ TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
 MY_PHONE_NUMBER = os.environ.get('MY_PHONE_NUMBER')
 BUSINESS_PHONE_NUMBER = os.environ.get('BUSINESS_PHONE_NUMBER')
 
-client = Client(account_sid, auth_token)
+client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
 app = Flask(__name__)
 
